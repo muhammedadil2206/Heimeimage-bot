@@ -4,19 +4,28 @@
 
 ### Step 1: Create Service in Render
 
-Go to https://dashboard.render.com → New Web Service
+1. Go to https://dashboard.render.com
+2. Click **"New +"** → **"Web Service"**
+3. Connect GitHub → Select repo: `muhammedadil2206/Heimeimage-bot`
 
-**Copy & Paste These 3 Values:**
+**Fill These Fields:**
 
 ```
 Name: heimage-bot
+Environment: Node
+Branch: main
+Region: Oregon (or closest to you)
+Root Directory: (leave empty)
+
 Build Command: cd client && npm install && npm run build && cd ../server && npm install
 Start Command: cd server && npm start
+
+Instance Type: Free
 ```
 
-### Step 2: Add 3 Environment Variables
+### Step 2: Add Environment Variables
 
-In Render Dashboard → Environment Variables:
+Click **"Add Environment Variable"** and add:
 
 ```
 NODE_ENV = production
@@ -25,19 +34,17 @@ JWT_SECRET = [any-random-string]
 CLIPDROP_API_KEY = [your-clipdrop-api-key]
 ```
 
-**Done!** 🎉 Your app will be live in 2-3 minutes.
+**Click "Create Web Service"** → Wait 2-3 minutes → **Done!** 🎉
 
 ---
 
-## 📁 Project Structure
+## 📁 Files You Need
 
-```
-heimage-bot/
-├── client/          # React frontend
-├── server/          # Express backend
-├── render.yaml      # Render config (auto-deploy)
-└── README.md        # This file
-```
+**Only 2 files matter:**
+1. **`README.md`** - This file (deployment guide)
+2. **`render.yaml`** - Auto-config (optional, makes it easier)
+
+Everything else is your code (client/, server/, etc.)
 
 ---
 
@@ -49,7 +56,16 @@ heimage-bot/
 
 ---
 
+## ⚠️ Important Notes
+
+- ✅ Don't set `PORT` - Render sets it automatically
+- ✅ No `CLIENT_URL` or `VITE_API_BASE_URL` needed (same domain)
+- ✅ Free tier sleeps after 15 min - first request may be slow
+- ✅ Auto-deploy enabled by default - future pushes auto-deploy
+
+---
+
 ## ✅ That's It!
 
-Just use the 3 values above. Everything else is automatic!
+Just copy & paste the values above. Everything else is automatic!
 
