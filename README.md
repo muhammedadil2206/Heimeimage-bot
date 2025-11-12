@@ -17,16 +17,21 @@ npm run install:all
 
 ### Run Development Server
 
-**Run both backend and frontend together:**
+**Option 1: Run Both Together (Recommended)**
 ```bash
 npm run dev
 ```
 
-This starts:
-- **Backend:** http://localhost:5000
-- **Frontend:** http://localhost:5173
+**Option 2: Windows PowerShell (If concurrently fails)**
+```powershell
+.\run-dev.ps1
+```
+Or use the Windows command:
+```bash
+npm run dev:win
+```
 
-### Or Run Separately
+**Option 3: Run Separately (Most Reliable)**
 
 **Terminal 1 - Backend:**
 ```bash
@@ -37,6 +42,10 @@ npm run dev:server
 ```bash
 npm run dev:client
 ```
+
+This starts:
+- **Backend:** http://localhost:5000
+- **Frontend:** http://localhost:5173
 
 ### Environment Variables (Local)
 
