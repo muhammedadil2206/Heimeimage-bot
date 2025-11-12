@@ -108,43 +108,47 @@ Prompt history is stored per user (latest 20 entries) with `prompt`, `style`, `i
 
 ---
 
-## 6. Deployment to Render
+## 6. Deployment to Vercel
 
 ### Backend Deployment
 
-1. **Go to Render Dashboard:** https://dashboard.render.com
-2. **Create New Web Service:**
-   - Connect GitHub repository: `muhammedadil2206/Heimeimage-bot`
-   - **Root Directory:** `server`
-   - **Build Command:** `npm install`
-   - **Start Command:** `npm start`
-   - **Instance Type:** Free
+1. **Go to Vercel Dashboard:** https://vercel.com/dashboard
+2. **Click:** "Add New..." → "Project"
+3. **Connect GitHub:** `muhammedadil2206/Heimeimage-bot`
+4. **Configure:**
+   - **Root Directory:** `.` (root)
+   - **Build Command:** `cd server && npm install`
+   - **Output Directory:** EMPTY (leave empty)
+   - **Framework Preset:** Other
 
-3. **Environment Variables:**
+5. **Environment Variables:**
    ```
    NODE_ENV=production
-   PORT=10000
    MONGO_URI=mongodb+srv://...@...mongodb.net/heimeimage?...
    JWT_SECRET=your_random_secret_key_32_chars_min
    CLIPDROP_API_KEY=your_clipdrop_api_key
-   CLIENT_URL=https://your-frontend-url.onrender.com
+   CLIENT_URL=https://your-frontend-url.vercel.app
    ```
 
-4. **Health Check Path:** `/api/health`
+6. **Click:** "Deploy"
 
 ### Frontend Deployment
 
-1. **Go to Render Dashboard:** https://dashboard.render.com
-2. **Create New Static Site:**
-   - Connect GitHub repository: `muhammedadil2206/Heimeimage-bot`
+1. **Go to Vercel Dashboard:** https://vercel.com/dashboard
+2. **Click:** "Add New..." → "Project"
+3. **Select:** Same repository `muhammedadil2206/Heimeimage-bot`
+4. **Configure:**
    - **Root Directory:** `client`
-   - **Build Command:** `npm install && npm run build`
-   - **Publish Directory:** `dist`
+   - **Framework Preset:** Vite
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `dist`
 
-3. **Environment Variables:**
+5. **Environment Variables:**
    ```
-   VITE_API_BASE_URL=https://your-backend-url.onrender.com/api
+   VITE_API_BASE_URL=https://your-backend-url.vercel.app/api
    ```
+
+6. **Click:** "Deploy"
 
 ### After Deployment
 
@@ -154,11 +158,7 @@ Prompt history is stored per user (latest 20 entries) with `prompt`, `style`, `i
 
 ### Detailed Deployment Guide
 
-See `DEPLOY_TO_RENDER_STEP_BY_STEP.md` for detailed step-by-step instructions.
-
-### Environment Variables Reference
-
-See `RENDER_ENV_VARIABLES.md` for complete environment variables documentation.
+See `VERCEL_QUICK_START.md` or `VERCEL_DEPLOYMENT.md` for detailed step-by-step instructions.
 
 ---
 
@@ -215,42 +215,49 @@ For more troubleshooting, see `FIX_TOKEN_ERROR.md` and `START_HERE.md`.
 
 ---
 
-## 10. Deployment
+## 10. Deployment to Vercel
 
-### Backend Deployment (Render/Fly/Heroku)
+### Backend Deployment (Vercel)
 
-1. **Set Environment Variables:**
+1. **Go to Vercel Dashboard:** https://vercel.com/dashboard
+2. **Configure:**
+   - **Root Directory:** `.` (root)
+   - **Build Command:** `cd server && npm install`
+   - **Output Directory:** EMPTY (leave empty)
+   - **Framework Preset:** Other
+
+3. **Environment Variables:**
    ```
-   PORT=5000
+   NODE_ENV=production
    MONGO_URI=your_production_mongo_uri
    JWT_SECRET=your_production_jwt_secret
    CLIPDROP_API_KEY=your_clipdrop_api_key
-   CLIENT_URL=https://your-frontend-domain.com
+   CLIENT_URL=https://your-frontend-domain.vercel.app
    ```
 
-2. **Build Command:** `npm install`
-3. **Start Command:** `npm run start`
-4. **Node Version:** 18+
+### Frontend Deployment (Vercel)
 
-### Frontend Deployment (Vercel/Netlify)
+1. **Go to Vercel Dashboard:** https://vercel.com/dashboard
+2. **Configure:**
+   - **Root Directory:** `client`
+   - **Framework Preset:** Vite
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `dist`
 
-1. **Set Environment Variables:**
+3. **Environment Variables:**
    ```
-   VITE_API_BASE_URL=https://your-backend-domain.com/api
+   VITE_API_BASE_URL=https://your-backend-domain.vercel.app/api
    ```
-
-2. **Build Command:** `npm run build`
-3. **Output Directory:** `dist`
-4. **Node Version:** 18+
 
 ### Important Notes
 
-- Remove test routes (`/api/test/test-clipdrop`) in production
-- Use HTTPS in production
+- Remove test routes (`/api/test/test-clipdrop`) in production (already disabled in production mode)
+- Use HTTPS in production (Vercel provides automatically)
 - Set secure JWT_SECRET (long, random string)
 - Configure CORS with production frontend URL
 - Use production MongoDB database
 - Monitor API rate limits
+- See `VERCEL_QUICK_START.md` for detailed deployment guide
 
 ---
 

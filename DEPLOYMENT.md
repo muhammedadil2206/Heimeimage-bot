@@ -68,18 +68,12 @@
 
 ## Production Configuration
 
-### Remove Test Routes
+### Test Routes
 
-Before deploying, remove or comment out the test route:
-
-**server/server.js:**
-```javascript
-// Remove this line in production:
-// app.use('/api/test', testRoutes);
-```
-
-**server/routes/testRoutes.js:**
-- Delete this file or don't import it in production
+Test routes are automatically disabled in production:
+- Test routes (`/api/test/*`) are only enabled in development
+- In production (`NODE_ENV=production`), test routes are automatically disabled
+- No manual removal needed
 
 ### Security Checklist
 
@@ -96,20 +90,21 @@ Before deploying, remove or comment out the test route:
 
 ### Environment Variables
 
-**Backend Production (.env):**
+**Backend (Vercel):**
 ```
-PORT=5000
-MONGO_URI=your_production_mongo_uri
+NODE_ENV=production
+MONGO_URI=mongodb+srv://...@...mongodb.net/heimeimage?...
 JWT_SECRET=your_secure_random_secret_min_32_chars
 CLIPDROP_API_KEY=your_clipdrop_api_key
-CLIENT_URL=https://your-frontend-domain.com
-NODE_ENV=production
+CLIENT_URL=https://your-frontend-domain.vercel.app
 ```
 
-**Frontend Production (.env):**
+**Frontend (Vercel):**
 ```
-VITE_API_BASE_URL=https://your-backend-domain.com/api
+VITE_API_BASE_URL=https://your-backend-domain.vercel.app/api
 ```
+
+**Important:** Set these in Vercel Dashboard → Settings → Environment Variables
 
 ---
 
