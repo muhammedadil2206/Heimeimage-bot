@@ -73,6 +73,18 @@ npm install
 
 ## 4. Local Development
 
+### Option 1: Start Both with Single Command (Recommended)
+
+From the project root, run:
+
+```bash
+npm run dev
+```
+
+This will start both backend and frontend simultaneously in the same terminal.
+
+### Option 2: Start Separately (Alternative)
+
 Start the backend and frontend in separate terminals.
 
 ```bash
@@ -89,6 +101,16 @@ npm run dev
 - Vite dev server will run on `http://localhost:5173`
 
 When authenticated, the frontend stores the JWT and user info in `localStorage` and sends the token with every API call.
+
+### Install All Dependencies (First Time)
+
+If you're setting up the project for the first time, run:
+
+```bash
+npm run install:all
+```
+
+This will install dependencies for root, server, and client automatically.
 
 ---
 
@@ -172,9 +194,16 @@ See `VERCEL_QUICK_START.md` or `VERCEL_DEPLOYMENT.md` for detailed step-by-step 
 
 ## 8. Scripts
 
+### Root (Project Root)
+- `npm run dev` – start both backend and frontend (recommended)
+- `npm run install:all` – install all dependencies (root, server, client)
+- `npm run dev:server` – start only backend
+- `npm run dev:client` – start only frontend
+
 ### Backend (`server/`)
 - `npm run dev` – start with Nodemon
 - `npm run start` – start in production mode
+- `npm run verify-db` – verify MongoDB connection
 
 ### Frontend (`client/`)
 - `npm run dev` – Vite development server

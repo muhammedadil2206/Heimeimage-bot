@@ -1,0 +1,29 @@
+{
+  "name": "heimage-bot",
+  "version": "1.0.0",
+  "description": "Full-stack text-to-image generator using Clipdrop API",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install",
+    "start": "concurrently \"npm run start:server\" \"npm run start:client\"",
+    "start:server": "cd server && npm start",
+    "start:client": "cd client && npm run dev"
+  },
+  "keywords": [
+    "text-to-image",
+    "mern",
+    "react",
+    "express",
+    "mongodb",
+    "clipdrop"
+  ],
+  "author": "Muhammed Adil",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
+
