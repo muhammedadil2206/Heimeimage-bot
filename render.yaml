@@ -1,17 +1,18 @@
 services:
   # ============================================
-  # BACKEND API SERVICE
+  # COMBINED SERVICE (Backend + Frontend)
   # ============================================
+  # Single service that serves both API and React frontend
   # Render will automatically:
-  # - Assign URL: https://heimage-bot-backend.onrender.com
+  # - Assign URL: https://heimage-bot.onrender.com
   # - Set PORT environment variable automatically
   # - Auto-deploy on every GitHub push (if enabled)
   # ============================================
   - type: web
-    name: heimage-bot-backend
+    name: heimage-bot
     env: node
     plan: free
-    buildCommand: cd server && npm install
+    buildCommand: cd client && npm install && npm run build && cd ../server && npm install
     startCommand: cd server && npm start
     envVars:
       - key: NODE_ENV
@@ -20,25 +21,5 @@ services:
       # - MONGO_URI: Your MongoDB connection string
       # - JWT_SECRET: Random secret (generate: openssl rand -hex 32)
       # - CLIPDROP_API_KEY: Your Clipdrop API key
-      # - CLIENT_URL: https://heimage-bot-frontend.onrender.com (set after frontend deploys)
-
-  # ============================================
-  # FRONTEND STATIC SITE SERVICE
-  # ============================================
-  # Render will automatically:
-  # - Assign URL: https://heimage-bot-frontend.onrender.com
-  # - Set PORT environment variable automatically
-  # - Auto-deploy on every GitHub push (if enabled)
-  # ============================================
-  - type: web
-    name: heimage-bot-frontend
-    env: node
-    plan: free
-    buildCommand: cd client && npm install && npm run build
-    startCommand: cd client && npx serve -s dist -l $PORT
-    envVars:
-      - key: VITE_API_BASE_URL
-        value: https://heimage-bot-backend.onrender.com/api
-        # NOTE: This is a placeholder. After backend deploys, update this in Render Dashboard
-        # to match your actual backend URL: https://YOUR-BACKEND-SERVICE.onrender.com/api
+      # Note: CLIENT_URL and VITE_API_BASE_URL not needed - same domain!
 

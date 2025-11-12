@@ -1,6 +1,12 @@
 # 📝 Render Web Service Setup - Exact Values to Fill
 
-## 🎯 Backend Service Setup
+## ✅ SINGLE SERVICE SETUP (Recommended)
+
+Everything is now combined into **ONE service** - simpler and easier!
+
+---
+
+## 🎯 Single Service Setup
 
 ### Step 1: Create New Web Service
 1. Go to https://dashboard.render.com
@@ -8,11 +14,11 @@
 3. Connect your GitHub account (if not already connected)
 4. Select repository: **`muhammedadil2206/Heimeimage-bot`**
 
-### Step 2: Fill in Backend Service Details
+### Step 2: Fill in Service Details
 
 **Basic Settings:**
 ```
-Name: heimage-bot-backend
+Name: heimage-bot
 Region: (Choose closest to you - e.g., Oregon, Frankfurt, etc.)
 Branch: main
 Root Directory: (leave empty)
@@ -21,7 +27,7 @@ Root Directory: (leave empty)
 **Build & Deploy:**
 ```
 Environment: Node
-Build Command: cd server && npm install
+Build Command: cd client && npm install && npm run build && cd ../server && npm install
 Start Command: cd server && npm start
 ```
 
@@ -35,7 +41,7 @@ Plan: Free (or choose Starter/Standard if you want)
 Auto-Deploy: Yes (enabled by default)
 ```
 
-### Step 3: Add Environment Variables (Backend)
+### Step 3: Add Environment Variables
 
 Click **"Add Environment Variable"** and add these one by one:
 
@@ -61,104 +67,28 @@ Key: CLIPDROP_API_KEY
 Value: [Your Clipdrop API key]
 ```
 
-```
-Key: CLIENT_URL
-Value: https://heimage-bot-frontend.onrender.com
-(Update this AFTER frontend deploys - use the actual frontend URL)
-```
+**Note:** 
+- Don't add `PORT` - Render sets it automatically!
+- No need for `CLIENT_URL` or `VITE_API_BASE_URL` - same domain!
 
-**Note:** Don't add `PORT` - Render sets it automatically!
-
-### Step 4: Create Backend Service
+### Step 4: Create Service
 - Click **"Create Web Service"**
 - Wait 2-3 minutes for deployment
-- **Copy the service URL** (e.g., `https://heimage-bot-backend.onrender.com`)
-
----
-
-## 🎨 Frontend Service Setup
-
-### Step 1: Create New Web Service
-1. Still in Render Dashboard
-2. Click **"New +"** → **"Web Service"**
-3. Select the same repository: **`muhammedadil2206/Heimeimage-bot`**
-
-### Step 2: Fill in Frontend Service Details
-
-**Basic Settings:**
-```
-Name: heimage-bot-frontend
-Region: (Same as backend - e.g., Oregon, Frankfurt, etc.)
-Branch: main
-Root Directory: (leave empty)
-```
-
-**Build & Deploy:**
-```
-Environment: Node
-Build Command: cd client && npm install && npm run build
-Start Command: cd client && npx serve -s dist -l $PORT
-```
-
-**Plan:**
-```
-Plan: Free (or choose Starter/Standard if you want)
-```
-
-**Advanced Settings:**
-```
-Auto-Deploy: Yes (enabled by default)
-```
-
-### Step 3: Add Environment Variables (Frontend)
-
-Click **"Add Environment Variable"** and add:
-
-```
-Key: VITE_API_BASE_URL
-Value: https://heimage-bot-backend.onrender.com/api
-(Use the ACTUAL backend URL you copied in Step 4 above)
-```
-
-**That's it for frontend!** Only one environment variable needed.
-
-### Step 4: Create Frontend Service
-- Click **"Create Web Service"**
-- Wait 2-3 minutes for deployment
-- **Copy the frontend URL** (e.g., `https://heimage-bot-frontend.onrender.com`)
-
----
-
-## 🔄 Final Step: Update Backend CLIENT_URL
-
-After frontend deploys:
-
-1. Go back to **backend service** → **Environment** tab
-2. Find `CLIENT_URL` variable
-3. Click **"Edit"**
-4. Update value to your actual frontend URL: `https://heimage-bot-frontend.onrender.com`
-5. Click **"Save Changes"**
-6. Service will auto-redeploy
+- **Visit your URL** - both frontend and API work on the same domain!
 
 ---
 
 ## 📋 Quick Reference Checklist
 
-### Backend Service:
-- [ ] Name: `heimage-bot-backend`
-- [ ] Build: `cd server && npm install`
+### Single Service:
+- [ ] Name: `heimage-bot`
+- [ ] Build: `cd client && npm install && npm run build && cd ../server && npm install`
 - [ ] Start: `cd server && npm start`
 - [ ] Env: `NODE_ENV=production`
 - [ ] Env: `MONGO_URI=[your-mongodb-uri]`
 - [ ] Env: `JWT_SECRET=[random-secret]`
 - [ ] Env: `CLIPDROP_API_KEY=[your-key]`
-- [ ] Env: `CLIENT_URL=[frontend-url]` (update after frontend deploys)
-
-### Frontend Service:
-- [ ] Name: `heimage-bot-frontend`
-- [ ] Build: `cd client && npm install && npm run build && npm install -g serve`
-- [ ] Start: `serve -s client/dist -l $PORT`
-- [ ] Env: `VITE_API_BASE_URL=[backend-url]/api`
+- [ ] ✅ Done! One service, one URL, everything works!
 
 ---
 

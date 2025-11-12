@@ -66,8 +66,8 @@ if (process.env.NODE_ENV !== 'production') {
   console.log('Test routes enabled (development mode only)');
 }
 
-// Serve static files from React app in production (optional - if serving frontend from backend)
-if (process.env.NODE_ENV === 'production' && process.env.SERVE_STATIC === 'true') {
+// Serve static files from React app in production
+if (process.env.NODE_ENV === 'production') {
   const path = require('path');
   app.use(express.static(path.join(__dirname, '../client/dist')));
   
