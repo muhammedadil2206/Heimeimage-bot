@@ -108,16 +108,57 @@ Prompt history is stored per user (latest 20 entries) with `prompt`, `style`, `i
 
 ---
 
-## 6. Deployment Notes
-- **Backend (Render/Fly/Heroku/etc.):**
-  - Set environment variables shown above
-  - Use `npm run start` to launch the server
-- **Frontend (Vercel/Netlify):**
-  - Set `VITE_API_BASE_URL` to your deployed backend URL
-  - Build command: `npm run build`
-  - Output directory: `dist`
+## 6. Deployment to Render
 
-Ensure HTTPS is enforced on production deployments and configure CORS (`CLIENT_URL`) with your hosted frontend origin.
+### Backend Deployment
+
+1. **Go to Render Dashboard:** https://dashboard.render.com
+2. **Create New Web Service:**
+   - Connect GitHub repository: `muhammedadil2206/Heimeimage-bot`
+   - **Root Directory:** `server`
+   - **Build Command:** `npm install`
+   - **Start Command:** `npm start`
+   - **Instance Type:** Free
+
+3. **Environment Variables:**
+   ```
+   NODE_ENV=production
+   PORT=10000
+   MONGO_URI=mongodb+srv://...@...mongodb.net/heimeimage?...
+   JWT_SECRET=your_random_secret_key_32_chars_min
+   CLIPDROP_API_KEY=your_clipdrop_api_key
+   CLIENT_URL=https://your-frontend-url.onrender.com
+   ```
+
+4. **Health Check Path:** `/api/health`
+
+### Frontend Deployment
+
+1. **Go to Render Dashboard:** https://dashboard.render.com
+2. **Create New Static Site:**
+   - Connect GitHub repository: `muhammedadil2206/Heimeimage-bot`
+   - **Root Directory:** `client`
+   - **Build Command:** `npm install && npm run build`
+   - **Publish Directory:** `dist`
+
+3. **Environment Variables:**
+   ```
+   VITE_API_BASE_URL=https://your-backend-url.onrender.com/api
+   ```
+
+### After Deployment
+
+1. **Update Backend CLIENT_URL** with your frontend URL
+2. **Update MongoDB Atlas IP Whitelist** to include `0.0.0.0/0`
+3. **Test deployment** by accessing your frontend URL
+
+### Detailed Deployment Guide
+
+See `DEPLOY_TO_RENDER_STEP_BY_STEP.md` for detailed step-by-step instructions.
+
+### Environment Variables Reference
+
+See `RENDER_ENV_VARIABLES.md` for complete environment variables documentation.
 
 ---
 

@@ -15,10 +15,16 @@ const app = express();
 // CORS configuration for production
 const getCorsOrigin = () => {
   if (process.env.CLIENT_URL) {
-    return process.env.CLIENT_URL.split(',').map(url => url.trim());
+    // Split multiple URLs if provided (comma-separated)
+    const urls = process.env.CLIENT_URL.split(',').map(url => url.trim()).filter(url => url);
+    return urls.length > 0 ? urls : '*';
   }
-  // Allow all origins in development, specific URLs in production
-  return process.env.NODE_ENV === 'production' ? [] : '*';
+  // Allow all origins in development, warn in production
+  if (process.env.NODE_ENV === 'production') {
+    console.warn('⚠️  WARNING: CLIENT_URL is not set in production. CORS will allow all origins.');
+    return '*'; // Allow all in production if CLIENT_URL is not set (will be updated later)
+  }
+  return '*'; // Allow all in development
 };
 
 const corsOptions = {
