@@ -8,13 +8,10 @@ Vercel is a great choice for deploying both frontend and backend. Here's how to 
 
 ## 🎯 Recommended Setup
 
-### Option 1: Both on Vercel (Simple)
+### Both on Vercel (Recommended)
 - **Frontend:** Vercel (Static Site)
 - **Backend:** Vercel (Serverless Functions)
-
-### Option 2: Frontend on Vercel + Backend on Render (Better for Long Processes)
-- **Frontend:** Vercel (Static Site)
-- **Backend:** Render (Web Service) - Better for image generation
+- **Note:** Vercel serverless functions are perfect for this use case
 
 ---
 
@@ -42,9 +39,9 @@ Vercel is a great choice for deploying both frontend and backend. Here's how to 
 
 2. **Configure:**
    - **Framework Preset:** Other
-   - **Root Directory:** `server`
-   - **Build Command:** `npm install`
-   - **Output Directory:** Leave empty
+   - **Root Directory:** `.` (root) or leave empty
+   - **Build Command:** `cd server && npm install`
+   - **Output Directory:** Leave empty (important!)
    - **Install Command:** `npm install`
 
 5. **Environment Variables:**
