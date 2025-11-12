@@ -20,12 +20,27 @@ Vercel is a great choice for deploying both frontend and backend. Here's how to 
 
 ## 🚀 Quick Deployment Steps
 
-### Step 1: Deploy Backend to Vercel
+### Step 1: Connect GitHub to Vercel
 
 1. **Go to Vercel Dashboard:** https://vercel.com/dashboard
-2. **Click:** New Project
-3. **Import:** GitHub repository `muhammedadil2206/Heimeimage-bot`
-4. **Configure:**
+2. **Click:** "Add New..." → "Project" (or "New Project")
+3. **Click:** "Import Git Repository"
+4. **Select:** "GitHub" (if not already connected)
+5. **Click:** "Connect GitHub" or "Authorize Vercel"
+6. **Authorize:** Vercel will ask for permissions
+   - Select: "Only select repositories" (recommended)
+   - Or: "All repositories"
+7. **Select:** Your repository `muhammedadil2206/Heimeimage-bot`
+8. **Click:** "Authorize" or "Install"
+
+### Step 2: Deploy Backend to Vercel
+
+1. **After connecting GitHub:**
+   - You'll see a list of your repositories
+   - Find: `muhammedadil2206/Heimeimage-bot`
+   - Click: "Import" button
+
+2. **Configure:**
    - **Framework Preset:** Other
    - **Root Directory:** `server`
    - **Build Command:** `npm install`
@@ -47,11 +62,11 @@ Vercel is a great choice for deploying both frontend and backend. Here's how to 
 
 ---
 
-### Step 2: Deploy Frontend to Vercel
+### Step 3: Deploy Frontend to Vercel
 
 1. **Go to Vercel Dashboard:** https://vercel.com/dashboard
-2. **Click:** New Project
-3. **Import:** Same GitHub repository `muhammedadil2206/Heimeimage-bot`
+2. **Click:** "Add New..." → "Project"
+3. **Select:** Same repository `muhammedadil2206/Heimeimage-bot` (already connected)
 4. **Configure:**
    - **Framework Preset:** Vite
    - **Root Directory:** `client`
@@ -70,7 +85,7 @@ Vercel is a great choice for deploying both frontend and backend. Here's how to 
 
 ---
 
-### Step 3: Update URLs
+### Step 4: Update URLs
 
 1. **Update Backend CLIENT_URL:**
    - Go to Vercel Dashboard → Backend Project → Settings → Environment Variables
@@ -100,6 +115,23 @@ Vercel is a great choice for deploying both frontend and backend. Here's how to 
 3. **Test Signup:** Create a new account
 4. **Test Login:** Login with your account
 5. **Test Image Generation:** Generate an image
+
+---
+
+## 🔄 Automatic Deployments
+
+### After Connecting GitHub:
+
+- **Automatic Deployments:** Every push to `main` branch automatically deploys
+- **Preview Deployments:** Every pull request gets a preview deployment
+- **Production Deployments:** Only `main` branch deploys to production
+
+### How It Works:
+
+1. **Push to GitHub:** `git push origin main`
+2. **Vercel Detects:** Vercel automatically detects the push
+3. **Automatic Build:** Vercel automatically builds and deploys
+4. **Notification:** You get a notification when deployment is complete
 
 ---
 
