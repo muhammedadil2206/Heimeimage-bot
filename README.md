@@ -1,6 +1,57 @@
-# 🚀 Heimage Bot - Deploy to Render
+# 🚀 Heimage Bot - Complete Guide
 
-## ⚡ Quick Deploy (2 Steps)
+## 📋 Table of Contents
+1. [Run Locally](#-run-locally)
+2. [Deploy to Render](#-deploy-to-render)
+
+---
+
+## 💻 Run Locally
+
+### First Time Setup
+
+**Install all dependencies:**
+```bash
+npm run install:all
+```
+
+### Run Development Server
+
+**Run both backend and frontend together:**
+```bash
+npm run dev
+```
+
+This starts:
+- **Backend:** http://localhost:5000
+- **Frontend:** http://localhost:5173
+
+### Or Run Separately
+
+**Terminal 1 - Backend:**
+```bash
+npm run dev:server
+```
+
+**Terminal 2 - Frontend:**
+```bash
+npm run dev:client
+```
+
+### Environment Variables (Local)
+
+Create `.env` file in `server/` folder:
+
+```env
+MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/heimeimage
+JWT_SECRET=your-random-secret-key
+CLIPDROP_API_KEY=your-clipdrop-api-key
+NODE_ENV=development
+```
+
+---
+
+## 🚀 Deploy to Render
 
 ### Step 1: Create Service in Render
 
@@ -38,13 +89,15 @@ CLIPDROP_API_KEY = [your-clipdrop-api-key]
 
 ---
 
-## 📁 Files You Need
+## 📁 Project Structure
 
-**Only 2 files matter:**
-1. **`README.md`** - This file (deployment guide)
-2. **`render.yaml`** - Auto-config (optional, makes it easier)
-
-Everything else is your code (client/, server/, etc.)
+```
+heimage-bot/
+├── client/          # React frontend
+├── server/          # Express backend
+├── render.yaml      # Render config (auto-deploy)
+└── README.md        # This file (everything you need)
+```
 
 ---
 
@@ -61,11 +114,37 @@ Everything else is your code (client/, server/, etc.)
 - ✅ Don't set `PORT` - Render sets it automatically
 - ✅ No `CLIENT_URL` or `VITE_API_BASE_URL` needed (same domain)
 - ✅ Free tier sleeps after 15 min - first request may be slow
-- ✅ Auto-deploy enabled by default - future pushes auto-deploy
+- ✅ Auto-deploy enabled by default - future pushes will auto-deploy
 
 ---
 
-## ✅ That's It!
+## ✅ Quick Commands Reference
 
-Just copy & paste the values above. Everything else is automatic!
+```bash
+# Install dependencies (first time)
+npm run install:all
 
+# Run development (both frontend + backend)
+npm run dev
+
+# Run backend only
+npm run dev:server
+
+# Run frontend only
+npm run dev:client
+
+# Build for production
+npm run build
+
+# Run production server
+npm start
+```
+
+---
+
+## 🎉 That's It!
+
+**Local:** Just run `npm run dev`  
+**Deploy:** Copy & paste the values above in Render
+
+Everything else is automatic!
