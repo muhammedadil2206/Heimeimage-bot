@@ -1,4 +1,4 @@
-import { apiClient } from './api';
+import api from './api';
 
 export const generateImage = async ({ prompt, style, token }) => {
   if (!token) {
@@ -10,7 +10,7 @@ export const generateImage = async ({ prompt, style, token }) => {
     console.log('Request payload:', { prompt, style });
     console.log('Token present:', !!token);
     
-    const response = await apiClient.post(
+    const response = await api.post(
       '/image/generate',
       { prompt, style },
       {
@@ -43,7 +43,7 @@ export const generateImage = async ({ prompt, style, token }) => {
 };
 
 export const fetchHistory = async (token) => {
-  const { data } = await apiClient.get('/history', {
+  const { data } = await api.get('/history', {
     headers: {
       Authorization: `Bearer ${token}`,
     },

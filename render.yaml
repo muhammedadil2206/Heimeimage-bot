@@ -1,25 +1,20 @@
 services:
-  # ============================================
-  # COMBINED SERVICE (Backend + Frontend)
-  # ============================================
-  # Single service that serves both API and React frontend
-  # Render will automatically:
-  # - Assign URL: https://heimage-bot.onrender.com
-  # - Set PORT environment variable automatically
-  # - Auto-deploy on every GitHub push (if enabled)
-  # ============================================
   - type: web
-    name: heimage-bot
+    name: heimage-api
     env: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node server.js
     plan: free
-    buildCommand: cd client && npm install && npm run build && cd ../server && npm install
-    startCommand: cd server && npm start
     envVars:
-      - key: NODE_ENV
-        value: production
-      # IMPORTANT: Add these in Render Dashboard (one-time setup):
-      # - MONGO_URI: Your MongoDB connection string
-      # - JWT_SECRET: Random secret (generate: openssl rand -hex 32)
-      # - CLIPDROP_API_KEY: Your Clipdrop API key
-      # Note: CLIENT_URL and VITE_API_BASE_URL not needed - same domain!
+      - key: PORT
+        value: 5000
+      - key: MONGO_URI
+        value: mongodb+srv://aithorappan_db_user:Gamefornow33@aynflix-admin.u9ngiga.mongodb.net/heimeimage?retryWrites=true&w=majority
+      - key: JWT_SECRET
+        value: abukyvtyukv45
+      - key: CLIPDROP_API_KEY
+        value: a15c73908e434ac03862a8553fdf272e95cbcf0c5b7fc584b4a61261a491247cf79aef81c334e277598943ce7351560e
+      - key: CLIENT_URL
+        value: https://heimage.vercel.app
 

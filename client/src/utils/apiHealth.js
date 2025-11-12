@@ -1,11 +1,11 @@
-import { apiClient } from '../services/api';
+import api from '../services/api';
 
 /**
  * Check if the backend server is running and accessible
  */
 export const checkServerHealth = async () => {
   try {
-    const response = await apiClient.get('/health');
+    const response = await api.get('/health');
     return {
       isHealthy: response.status === 200,
       message: 'Server is running',
