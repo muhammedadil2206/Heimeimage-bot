@@ -11,6 +11,11 @@
       "src": "/api/(.*)",
       "dest": "server/vercel.js"
     }
-  ]
+  ],
+  "functions": {
+    "server/vercel.js": {
+      "maxDuration": 60
+    }
+  }
 }
 
