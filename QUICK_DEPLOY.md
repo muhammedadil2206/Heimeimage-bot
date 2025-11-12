@@ -46,7 +46,7 @@
    - **Name:** `heimage-bot-frontend`
    - **Root Directory:** `client`
    - **Build Command:** `npm install && npm run build`
-   - **Publish Directory:** `dist`
+   - **Publish Directory:** `dist` (this is where Vite builds your app)
 5. Add Environment Variable:
    ```
    VITE_API_BASE_URL=https://heimage-bot-backend.onrender.com/api

@@ -44,7 +44,8 @@ const Home = () => {
       const health = await checkServerHealth();
       if (!health.isHealthy) {
         console.error('Server health check failed:', health);
-        toast.error(`Cannot connect to server: ${health.message}. Please make sure the backend is running on port 5000.`, {
+        const apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+        toast.error(`Cannot connect to server: ${health.message}. Please check if the backend is running at ${apiUrl}`, {
           duration: 5000,
         });
       } else {

@@ -86,7 +86,7 @@ CLIENT_URL = https://your-frontend-url.onrender.com
 - **Branch:** `main`
 - **Root Directory:** `client`
 - **Build Command:** `npm install && npm run build`
-- **Publish Directory:** `dist`
+- **Publish Directory:** `dist` (Vite outputs build files to this directory)
 
 **Environment Variables:**
 Click **Add Environment Variable** and add:

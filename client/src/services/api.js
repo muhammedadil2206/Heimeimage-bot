@@ -57,8 +57,8 @@ apiClient.interceptors.response.use(
     }
     
     if (error.code === 'ECONNREFUSED') {
-      console.error('Connection refused - server is not running or wrong port');
-      return Promise.reject(new Error('Cannot connect to server. Please make sure the backend server is running on port 5000.'));
+      console.error('Connection refused - server is not running or wrong URL');
+      return Promise.reject(new Error(`Cannot connect to server at ${API_BASE_URL}. Please check if the backend is running and the URL is correct.`));
     }
     
     // Server responded with error status
