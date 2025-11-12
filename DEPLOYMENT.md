@@ -113,11 +113,11 @@ VITE_API_BASE_URL=https://your-backend-domain.vercel.app/api
 ### Verify Deployment
 
 1. **Backend Health Check:**
-   - Visit: `https://your-backend-domain.com/api/health`
+   - Visit: `https://your-backend-domain.vercel.app/api/health`
    - Should return: `{"status":"ok","timestamp":"..."}`
 
 2. **Frontend:**
-   - Visit: `https://your-frontend-domain.com`
+   - Visit: `https://your-frontend-domain.vercel.app`
    - Should load the application
    - Test signup/login
    - Test image generation
@@ -128,6 +128,18 @@ VITE_API_BASE_URL=https://your-backend-domain.vercel.app/api
    - Verify authentication works
    - Verify image generation works
    - Verify history works
+
+### After Deployment
+
+1. **Update Backend CLIENT_URL:**
+   - Go to Vercel Dashboard → Backend Project → Settings → Environment Variables
+   - Update `CLIENT_URL` to your frontend URL
+   - Save and redeploy
+
+2. **Update MongoDB Atlas:**
+   - Go to MongoDB Atlas → Network Access → IP Access List
+   - Add `0.0.0.0/0` (allows all IPs)
+   - Click "Confirm"
 
 ### Monitoring
 
@@ -145,35 +157,35 @@ VITE_API_BASE_URL=https://your-backend-domain.vercel.app/api
 ### Backend Issues
 
 **502 Bad Gateway:**
-- Check if server is running
-- Check server logs
-- Verify environment variables
+- Check backend deployment status in Vercel Dashboard
+- Check backend logs in Vercel Dashboard → Deployments → Logs
+- Verify environment variables are set
 - Check MongoDB connection
 
 **503 Service Unavailable:**
-- Check if server is running
-- Check server resources
+- Check if backend is deployed
+- Check backend logs for errors
 - Verify database connection
 - Check API rate limits
 
 **CORS Errors:**
-- Verify CLIENT_URL in backend .env
-- Check CORS configuration
-- Verify frontend URL matches CLIENT_URL
+- Verify `CLIENT_URL` in Vercel environment variables
+- Check CORS configuration in `server/vercel.js`
+- Verify frontend URL matches `CLIENT_URL`
 
 ### Frontend Issues
 
 **Cannot connect to API:**
-- Verify VITE_API_BASE_URL in frontend .env
-- Check if backend is accessible
+- Verify `VITE_API_BASE_URL` in Vercel environment variables
+- Check if backend is accessible: `https://your-backend.vercel.app/api/health`
 - Verify CORS configuration
 - Check network requests in browser console
 
 **Authentication errors:**
-- Verify JWT_SECRET is set correctly
+- Verify `JWT_SECRET` is set correctly in Vercel
 - Check token expiration
 - Verify token is being sent in requests
-- Check backend logs for token errors
+- Check backend logs in Vercel Dashboard
 
 ---
 
