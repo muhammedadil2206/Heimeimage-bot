@@ -34,8 +34,8 @@ services:
     name: heimage-bot-frontend
     env: node
     plan: free
-    buildCommand: cd client && npm install && npm run build && npm install -g serve
-    startCommand: serve -s client/dist -l $PORT
+    buildCommand: cd client && npm install && npm run build
+    startCommand: cd client && npx serve -s dist -l $PORT
     envVars:
       - key: VITE_API_BASE_URL
         value: https://heimage-bot-backend.onrender.com/api
