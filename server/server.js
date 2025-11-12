@@ -79,8 +79,8 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// 404 handler for API routes
-app.use('/api/*', (req, res) => {
+// 404 handler for API routes (must be after all API routes)
+app.use('/api', (req, res) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
