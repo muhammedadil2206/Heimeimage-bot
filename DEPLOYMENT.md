@@ -15,157 +15,54 @@
 
 ---
 
-## Backend Deployment
+## Backend Deployment (Vercel)
 
-### Option 1: Render
+1. **Go to Vercel Dashboard:** https://vercel.com/dashboard
+2. **Click:** "Add New..." → "Project"
+3. **Connect GitHub:** `muhammedadil2206/Heimeimage-bot`
+4. **Configure:**
+   - **Root Directory:** `.` (root)
+   - **Build Command:** `cd server && npm install`
+   - **Output Directory:** EMPTY (leave empty)
+   - **Framework Preset:** Other
 
-1. **Create New Web Service**
-   - Connect your GitHub repository
-   - Select "Node" as environment
-   - Set root directory: `server`
-
-2. **Environment Variables:**
+5. **Environment Variables:**
    ```
-   PORT=5000
+   NODE_ENV=production
    MONGO_URI=your_production_mongo_uri
    JWT_SECRET=your_production_jwt_secret_min_32_chars
    CLIPDROP_API_KEY=your_clipdrop_api_key
-   CLIENT_URL=https://your-frontend-domain.com
-   NODE_ENV=production
+   CLIENT_URL=https://your-frontend-domain.vercel.app
    ```
 
-3. **Build Settings:**
-   - Build Command: `npm install`
-   - Start Command: `npm run start`
-
-4. **Advanced Settings:**
-   - Node Version: 18+
-   - Auto-Deploy: Yes
-
-### Option 2: Fly.io
-
-1. **Install Fly CLI:**
-   ```bash
-   npm install -g @fly/cli
-   ```
-
-2. **Create fly.toml:**
-   ```toml
-   app = "heimage-bot-backend"
-   primary_region = "iad"
-   
-   [build]
-   
-   [http_service]
-     internal_port = 5000
-     force_https = true
-     auto_stop_machines = true
-     auto_start_machines = true
-     min_machines_running = 0
-   
-   [[services]]
-     protocol = "tcp"
-     internal_port = 5000
-   ```
-
-3. **Deploy:**
-   ```bash
-   cd server
-   fly deploy
-   ```
-
-4. **Set Secrets:**
-   ```bash
-   fly secrets set MONGO_URI=your_mongo_uri
-   fly secrets set JWT_SECRET=your_jwt_secret
-   fly secrets set CLIPDROP_API_KEY=your_api_key
-   fly secrets set CLIENT_URL=https://your-frontend-domain.com
-   ```
-
-### Option 3: Heroku
-
-1. **Create Heroku App:**
-   ```bash
-   heroku create heimage-bot-backend
-   ```
-
-2. **Set Environment Variables:**
-   ```bash
-   heroku config:set MONGO_URI=your_mongo_uri
-   heroku config:set JWT_SECRET=your_jwt_secret
-   heroku config:set CLIPDROP_API_KEY=your_api_key
-   heroku config:set CLIENT_URL=https://your-frontend-domain.com
-   heroku config:set NODE_ENV=production
-   ```
-
-3. **Deploy:**
-   ```bash
-   cd server
-   git push heroku main
-   ```
+6. **Deploy:**
+   - Click "Deploy"
+   - Wait for build to complete
+   - Your backend will be live at `https://your-backend.vercel.app`
 
 ---
 
-## Frontend Deployment
+## Frontend Deployment (Vercel)
 
-### Option 1: Vercel
+1. **Go to Vercel Dashboard:** https://vercel.com/dashboard
+2. **Click:** "Add New..." → "Project"
+3. **Connect GitHub:** `muhammedadil2206/Heimeimage-bot`
+4. **Configure:**
+   - **Root Directory:** `client`
+   - **Framework Preset:** Vite
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `dist`
+   - **Install Command:** `npm install`
 
-1. **Connect Repository:**
-   - Import your GitHub repository
-   - Set root directory: `client`
-
-2. **Environment Variables:**
+5. **Environment Variables:**
    ```
-   VITE_API_BASE_URL=https://your-backend-domain.com/api
+   VITE_API_BASE_URL=https://your-backend-domain.vercel.app/api
    ```
 
-3. **Build Settings:**
-   - Framework Preset: Vite
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-   - Install Command: `npm install`
-
-4. **Deploy:**
+6. **Deploy:**
    - Click "Deploy"
    - Wait for build to complete
    - Your app will be live at `https://your-app.vercel.app`
-
-### Option 2: Netlify
-
-1. **Connect Repository:**
-   - Import your GitHub repository
-   - Set base directory: `client`
-
-2. **Build Settings:**
-   - Build command: `npm run build`
-   - Publish directory: `dist`
-   - Environment variables:
-     ```
-     VITE_API_BASE_URL=https://your-backend-domain.com/api
-     ```
-
-3. **Deploy:**
-   - Click "Deploy site"
-   - Wait for build to complete
-   - Your app will be live at `https://your-app.netlify.app`
-
-### Option 3: Netlify CLI
-
-1. **Install Netlify CLI:**
-   ```bash
-   npm install -g netlify-cli
-   ```
-
-2. **Build:**
-   ```bash
-   cd client
-   npm run build
-   ```
-
-3. **Deploy:**
-   ```bash
-   netlify deploy --prod --dir=dist
-   ```
 
 ---
 

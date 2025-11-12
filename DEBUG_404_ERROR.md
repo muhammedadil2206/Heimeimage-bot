@@ -19,32 +19,31 @@ Cannot connect to server: Server error: 404. Please check if the backend is runn
 
 ### Step 1: Verify Backend is Running
 
-1. Go to [Render Dashboard](https://dashboard.render.com)
-2. Click on your **Backend Service** (`heimage-bot-backend`)
-3. Check **Status** - should be **Live**
+1. Go to [Vercel Dashboard](https://vercel.com/dashboard)
+2. Click on your **Backend Project** (`heimage-bot-backend`)
+3. Check **Deployments** - should show **Ready**
 4. Check **Logs** - should show:
    ```
-   Server listening on port 10000
-   MongoDB connected
+   MongoDB connected (serverless)
    Environment: production
    ```
 
 ### Step 2: Test Backend Health Endpoint
 
 1. Open your browser
-2. Go to: `https://heimage-bot-backend.onrender.com/api/health`
+2. Go to: `https://heimage-bot-backend.vercel.app/api/health`
 3. Should return: `{"status":"ok","timestamp":"..."}`
 4. If you get 404, the backend might not be running or routes are misconfigured
 
 ### Step 3: Check Backend URL Format
 
-**In Render Dashboard:**
-- Backend URL should be: `https://heimage-bot-backend.onrender.com`
-- Note: Render automatically adds `https://`
+**In Vercel Dashboard:**
+- Backend URL should be: `https://heimage-bot-backend.vercel.app`
+- Note: Vercel automatically adds `https://`
 
 **In Frontend Environment Variable:**
 ```
-VITE_API_BASE_URL=https://heimage-bot-backend.onrender.com/api
+VITE_API_BASE_URL=https://heimage-bot-backend.vercel.app/api
 ```
 
 **Important:**
@@ -72,12 +71,12 @@ Check if backend routes are configured correctly:
 
 ### Step 6: Check Frontend Environment Variable
 
-1. Go to Render Dashboard → Frontend Service → Environment
+1. Go to Vercel Dashboard → Frontend Project → Settings → Environment Variables
 2. Check `VITE_API_BASE_URL`:
-   - Should be: `https://heimage-bot-backend.onrender.com/api`
+   - Should be: `https://heimage-bot-backend.vercel.app/api`
    - Should NOT be: `http://localhost:5000/api`
-   - Should NOT be: `heimage-bot-backend.onrender.com/api` (missing https://)
-   - Should NOT be: `https://heimage-bot-backend.onrender.com` (missing /api)
+   - Should NOT be: `heimage-bot-backend.vercel.app/api` (missing https://)
+   - Should NOT be: `https://heimage-bot-backend.vercel.app` (missing /api)
 
 ### Step 7: Check Browser Console
 
@@ -98,28 +97,28 @@ Check if backend routes are configured correctly:
 
 **Symptoms:**
 - 404 error
-- Backend status shows "Stopped" or "Build Failed"
+- Backend deployment shows "Failed" or "Error"
 
 **Solution:**
-1. Check backend logs in Render Dashboard
+1. Check backend logs in Vercel Dashboard
 2. Verify all environment variables are set
 3. Check if build succeeded
-4. Restart backend service
+4. Redeploy backend
 
 ### Issue 2: Wrong Backend URL
 
 **Symptoms:**
 - 404 error
-- URL shows `heimage-bot-backend.onrender.com/api` (missing https://)
+- URL shows `heimage-bot-backend.vercel.app/api` (missing https://)
 
 **Solution:**
-1. Update `VITE_API_BASE_URL` in Render:
+1. Update `VITE_API_BASE_URL` in Vercel:
    ```
-   https://heimage-bot-backend.onrender.com/api
+   https://heimage-bot-backend.vercel.app/api
    ```
 2. Make sure to include `https://`
 3. Make sure to include `/api`
-4. Save and wait for redeployment
+4. Save and redeploy (Vercel will automatically redeploy)
 
 ### Issue 3: Backend Routes Not Working
 
@@ -150,9 +149,9 @@ Check if backend routes are configured correctly:
 
 **Solution:**
 1. Check backend `CLIENT_URL` environment variable
-2. Should be: `https://heimage-bot-frontend.onrender.com`
-3. Update in Render Dashboard → Backend Service → Environment
-4. Save and wait for redeployment
+2. Should be: `https://heimage-bot-frontend.vercel.app`
+3. Update in Vercel Dashboard → Backend Project → Settings → Environment Variables
+4. Save and redeploy (Vercel will automatically redeploy)
 
 ### Issue 5: Environment Variable Not Set
 
@@ -161,12 +160,12 @@ Check if backend routes are configured correctly:
 - Browser console shows wrong API URL
 
 **Solution:**
-1. Go to Render Dashboard → Frontend Service → Environment
+1. Go to Vercel Dashboard → Frontend Project → Settings → Environment Variables
 2. Add `VITE_API_BASE_URL`:
    ```
-   https://heimage-bot-backend.onrender.com/api
+   https://heimage-bot-backend.vercel.app/api
    ```
-3. Save and wait for redeployment
+3. Save and redeploy (Vercel will automatically redeploy)
 4. Clear browser cache
 5. Reload page
 
@@ -192,7 +191,7 @@ Check if backend routes are configured correctly:
 ### Test 1: Health Check
 
 ```bash
-curl https://heimage-bot-backend.onrender.com/api/health
+curl https://heimage-bot-backend.vercel.app/api/health
 ```
 
 **Expected:** `{"status":"ok","timestamp":"..."}`
@@ -200,7 +199,7 @@ curl https://heimage-bot-backend.onrender.com/api/health
 ### Test 2: Signup Endpoint
 
 ```bash
-curl -X POST https://heimage-bot-backend.onrender.com/api/auth/signup \
+curl -X POST https://heimage-bot-backend.vercel.app/api/auth/signup \
   -H "Content-Type: application/json" \
   -d '{"name":"Test","email":"test@example.com","password":"password123"}'
 ```
@@ -209,7 +208,7 @@ curl -X POST https://heimage-bot-backend.onrender.com/api/auth/signup \
 
 ### Test 3: Check Backend Logs
 
-1. Go to Render Dashboard → Backend Service → Logs
+1. Go to Vercel Dashboard → Backend Project → Deployments → Logs
 2. Look for:
    - Server startup messages
    - MongoDB connection messages
@@ -222,18 +221,17 @@ curl -X POST https://heimage-bot-backend.onrender.com/api/auth/signup \
 
 ### Step 1: Check Backend Status
 
-1. Go to Render Dashboard
-2. Click on Backend Service
-3. Check Status - should be **Live**
+1. Go to Vercel Dashboard
+2. Click on Backend Project
+3. Check Deployments - should be **Ready**
 4. Check Last Deployed - should be recent
 
 ### Step 2: Check Backend Logs
 
-1. Go to Render Dashboard → Backend Service → Logs
+1. Go to Vercel Dashboard → Backend Project → Deployments → Logs
 2. Look for:
    ```
-   Server listening on port 10000
-   MongoDB connected
+   MongoDB connected (serverless)
    Environment: production
    ```
 3. If you see errors, fix them first
@@ -241,15 +239,15 @@ curl -X POST https://heimage-bot-backend.onrender.com/api/auth/signup \
 ### Step 3: Test Backend URL
 
 1. Open browser
-2. Go to: `https://heimage-bot-backend.onrender.com/api/health`
+2. Go to: `https://heimage-bot-backend.vercel.app/api/health`
 3. Should return JSON: `{"status":"ok","timestamp":"..."}`
 4. If 404, backend routes might not be configured correctly
 
 ### Step 4: Check Frontend Environment Variable
 
-1. Go to Render Dashboard → Frontend Service → Environment
+1. Go to Vercel Dashboard → Frontend Project → Settings → Environment Variables
 2. Check `VITE_API_BASE_URL`
-3. Should be: `https://heimage-bot-backend.onrender.com/api`
+3. Should be: `https://heimage-bot-backend.vercel.app/api`
 4. Update if incorrect
 
 ### Step 5: Check Browser Console
@@ -257,7 +255,7 @@ curl -X POST https://heimage-bot-backend.onrender.com/api/auth/signup \
 1. Open frontend URL
 2. Open browser console (F12)
 3. Look for API Base URL
-4. Should show: `https://heimage-bot-backend.onrender.com/api`
+4. Should show: `https://heimage-bot-backend.vercel.app/api`
 5. If wrong, update environment variable
 
 ---
@@ -267,17 +265,17 @@ curl -X POST https://heimage-bot-backend.onrender.com/api/auth/signup \
 **Problem:** 404 error when connecting to backend
 
 **Possible Causes:**
-1. Backend not running
+1. Backend not deployed/running
 2. Wrong backend URL (missing https://)
 3. Backend routes not configured
 4. Environment variable not set
 5. CORS issue
 
 **Solution:**
-1. Verify backend is running
+1. Verify backend is deployed on Vercel
 2. Test backend health endpoint
 3. Check backend URL format
-4. Set frontend environment variable correctly
+4. Set frontend environment variable correctly in Vercel
 5. Check CORS settings
 6. Check browser console for errors
 
