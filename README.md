@@ -57,9 +57,25 @@ VITE_API_BASE_URL=http://localhost:5000/api
 ---
 
 ## 3. Install Dependencies
+
+### Option 1: Install All at Once (Recommended)
+
 From the project root:
 
 ```bash
+npm run install:all
+```
+
+This will install dependencies for root, server, and client automatically.
+
+### Option 2: Install Separately
+
+From the project root:
+
+```bash
+# Install root dependencies (concurrently)
+npm install
+
 # Backend
 cd server
 npm install
