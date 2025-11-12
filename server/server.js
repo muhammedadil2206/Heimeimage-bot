@@ -15,16 +15,14 @@ const app = express();
 // CORS configuration for production
 const getCorsOrigin = () => {
   if (process.env.CLIENT_URL) {
-    // Split multiple URLs if provided (comma-separated)
     const urls = process.env.CLIENT_URL.split(',').map(url => url.trim()).filter(url => url);
     return urls.length > 0 ? urls : '*';
   }
-  // Allow all origins in development, warn in production
   if (process.env.NODE_ENV === 'production') {
-    console.warn('⚠️  WARNING: CLIENT_URL is not set in production. CORS will allow all origins.');
-    return '*'; // Allow all in production if CLIENT_URL is not set (will be updated later)
+    console.warn('⚠️ CLIENT_URL not set in production. Allowing all origins.');
+    return '*';
   }
-  return '*'; // Allow all in development
+  return '*';
 };
 
 const corsOptions = {
@@ -35,16 +33,16 @@ const corsOptions = {
 };
 
 app.use(helmet({
-  contentSecurityPolicy: false, // Allow base64 images
+  contentSecurityPolicy: false,
   crossOriginEmbedderPolicy: false,
 }));
 app.use(cors(corsOptions));
-app.use(express.json({ limit: '10mb' })); // Increased limit for base64 images
+app.use(express.json({ limit: '10mb' }));
 
-// Rate limiting - more lenient for production
+// Rate limiting
 const limiter = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
-  limit: process.env.NODE_ENV === 'production' ? 100 : 60, // More requests in production
+  windowMs: 60 * 1000,
+  limit: process.env.NODE_ENV === 'production' ? 100 : 60,
   standardHeaders: 'draft-7',
   legacyHeaders: false,
   message: 'Too many requests from this IP, please try again later.',
@@ -52,10 +50,12 @@ const limiter = rateLimit({
 
 app.use('/api', limiter);
 
+// Health check
 app.get('/api/health', (_, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/image', imageRoutes);
 app.use('/api/history', historyRoutes);
@@ -63,40 +63,24 @@ app.use('/api/history', historyRoutes);
 // Test route (only in development)
 if (process.env.NODE_ENV !== 'production') {
   app.use('/api/test', testRoutes);
-  console.log('Test routes enabled (development mode only)');
+  console.log('🧪 Test routes enabled (development mode only)');
 }
 
-// Serve static files from React app in production
-if (process.env.NODE_ENV === 'production') {
-  const path = require('path');
-  app.use(express.static(path.join(__dirname, '../client/dist')));
-  
-  // Handle React routing - return all non-API requests to React app
-  // Use middleware instead of route to avoid Express 5 path-to-regexp issues
-  app.use((req, res, next) => {
-    if (!req.path.startsWith('/api')) {
-      res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-    } else {
-      next();
-    }
-  });
-}
-
-// 404 handler for API routes (must be after all API routes)
+// 404 handler for unknown API routes
 app.use('/api', (req, res) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
+// Global error handler
 app.use((err, req, res, next) => {
   console.error('Unhandled error:', err);
   res.status(500).json({ message: 'Internal server error' });
 });
 
-// PORT - Render uses PORT environment variable, default to 5000 for local
+// PORT
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
-  // Verify environment variables
   console.log('=== Environment Variables Check ===');
   console.log('PORT:', process.env.PORT || '5000 (default)');
   console.log('MONGO_URI:', process.env.MONGO_URI ? 'Set' : 'NOT SET');
@@ -104,16 +88,16 @@ const startServer = async () => {
   console.log('CLIPDROP_API_KEY:', process.env.CLIPDROP_API_KEY ? `Set (${process.env.CLIPDROP_API_KEY.length} chars)` : 'NOT SET');
   console.log('CLIENT_URL:', process.env.CLIENT_URL || 'Not set (defaulting to *)');
   console.log('===================================');
-  
+
   await connectDB();
+
   app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
-    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`✅ Server running on port ${PORT}`);
+    console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
   });
 };
 
 startServer().catch((error) => {
-  console.error('Failed to start server:', error);
+  console.error('❌ Failed to start server:', error);
   process.exit(1);
 });
-
