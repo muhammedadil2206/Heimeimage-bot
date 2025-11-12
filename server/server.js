@@ -72,9 +72,12 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/dist')));
   
   // Handle React routing - return all non-API requests to React app
-  app.get('/*', (req, res) => {
+  // Use middleware instead of route to avoid Express 5 path-to-regexp issues
+  app.use((req, res, next) => {
     if (!req.path.startsWith('/api')) {
       res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    } else {
+      next();
     }
   });
 }
