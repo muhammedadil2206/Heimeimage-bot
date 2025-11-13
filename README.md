@@ -17,7 +17,12 @@ npm run install:all
 
 ### Run Everything (Single Command)
 
-**Just run this one command:**
+**Windows PowerShell:**
+```powershell
+npm run dev:win
+```
+
+**Mac/Linux or if concurrently works:**
 ```bash
 npm start
 ```
@@ -25,6 +30,11 @@ npm start
 Or:
 ```bash
 npm run dev
+```
+
+**If npm start fails on Windows, use:**
+```powershell
+.\run-dev.ps1
 ```
 
 This starts both:
