@@ -17,12 +17,7 @@ npm run install:all
 
 ### Run Everything (Single Command)
 
-**Windows PowerShell:**
-```powershell
-npm run dev:win
-```
-
-**Mac/Linux or if concurrently works:**
+**In VS Code Terminal (or any terminal):**
 ```bash
 npm start
 ```
@@ -32,16 +27,13 @@ Or:
 npm run dev
 ```
 
-**If npm start fails on Windows, use:**
-```powershell
-.\run-dev.ps1
-```
-
 This starts both:
 - **Backend:** http://localhost:5000
 - **Frontend:** http://localhost:5173
 
 **That's it!** One command runs everything. 🚀
+
+Press `Ctrl+C` to stop both servers.
 
 ### Environment Variables (Local)
 
@@ -144,6 +136,8 @@ npm run dev:client
 # Build for production
 npm run build
 ```
+
+**Note:** `npm start` now uses a Node.js script that works reliably in VS Code and all terminals.
 
 ---
 
