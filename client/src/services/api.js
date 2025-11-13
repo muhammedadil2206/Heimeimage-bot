@@ -11,7 +11,7 @@ const getBaseURL = () => {
     // If URL doesn't end with /api, add it
     return envUrl.endsWith('/') ? `${envUrl}api` : `${envUrl}/api`;
   }
-  // Fallback for local development
+  // In production (same domain), use relative path. In dev, use localhost
   return import.meta.env.PROD ? '/api' : 'http://localhost:5000/api';
 };
 

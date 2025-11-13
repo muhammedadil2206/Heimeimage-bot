@@ -53,9 +53,26 @@ NODE_ENV=development
 
 ---
 
-## 🚀 Deploy to Render
+## 🚀 Deploy to Render (Single Service - Backend + Frontend)
 
-### Step 1: Create Service in Render
+### Option 1: Using render.yaml (Automatic - Recommended)
+
+1. **Push to GitHub** - Your `render.yaml` is already configured!
+2. Go to https://dashboard.render.com
+3. Click **"New +"** → **"Blueprint"**
+4. Connect your GitHub repo: `muhammedadil2206/Heimeimage-bot`
+5. Render will automatically read `render.yaml` and create the service
+6. **Add Environment Variables** in Render Dashboard:
+   - `MONGO_URI` = [your-mongodb-connection-string]
+   - `JWT_SECRET` = [any-random-string]
+   - `CLIPDROP_API_KEY` = [your-clipdrop-api-key]
+7. Click **"Apply"** → Wait 2-3 minutes → **Done!** 🎉
+
+**Everything works on one URL:** `https://heimage-bot.onrender.com`
+- Frontend: `https://heimage-bot.onrender.com`
+- API: `https://heimage-bot.onrender.com/api`
+
+### Option 2: Manual Setup
 
 1. Go to https://dashboard.render.com
 2. Click **"New +"** → **"Web Service"**
@@ -67,19 +84,15 @@ NODE_ENV=development
 Name: heimage-bot
 Environment: Node
 Branch: main
-Region: Oregon (or closest to you)
 Root Directory: (leave empty)
 
 Build Command: cd client && npm install && npm run build && cd ../server && npm install
-Start Command: cd server && npm start
+Start Command: cd server && node server.js
 
 Instance Type: Free
 ```
 
-### Step 2: Add Environment Variables
-
-Click **"Add Environment Variable"** and add:
-
+**Add Environment Variables:**
 ```
 NODE_ENV = production
 MONGO_URI = [your-mongodb-connection-string]
@@ -106,8 +119,9 @@ heimage-bot/
 ## 🔧 How It Works
 
 - **Build:** Installs client → Builds React → Installs server
-- **Start:** Express serves API at `/api` and React at `/`
+- **Start:** Express serves API at `/api` and React frontend at `/`
 - **One URL:** Everything on `https://heimage-bot.onrender.com`
+- **Login/Signup:** Works automatically - same domain, no CORS issues!
 
 ---
 
@@ -115,8 +129,10 @@ heimage-bot/
 
 - ✅ Don't set `PORT` - Render sets it automatically
 - ✅ No `CLIENT_URL` or `VITE_API_BASE_URL` needed (same domain)
+- ✅ Login/Signup works automatically - backend and frontend on same domain
 - ✅ Free tier sleeps after 15 min - first request may be slow
 - ✅ Auto-deploy enabled by default - future pushes will auto-deploy
+- ✅ Single push deploys both backend and frontend together
 
 ---
 

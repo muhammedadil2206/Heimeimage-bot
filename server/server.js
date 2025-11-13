@@ -66,6 +66,21 @@ if (process.env.NODE_ENV !== 'production') {
   console.log('🧪 Test routes enabled (development mode only)');
 }
 
+// Serve static files from React app in production
+if (process.env.NODE_ENV === 'production') {
+  const path = require('path');
+  app.use(express.static(path.join(__dirname, '../client/dist')));
+  
+  // Handle React routing - return all non-API requests to React app
+  app.use((req, res, next) => {
+    if (!req.path.startsWith('/api')) {
+      res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    } else {
+      next();
+    }
+  });
+}
+
 // 404 handler for unknown API routes
 app.use('/api', (req, res) => {
   res.status(404).json({ message: 'Route not found' });

@@ -1,20 +1,19 @@
 services:
+  # Single service - Backend + Frontend combined
   - type: web
-    name: heimage-api
+    name: heimage-bot
     env: node
-    rootDir: server
-    buildCommand: npm install
-    startCommand: node server.js
     plan: free
+    buildCommand: cd client && npm install && npm run build && cd ../server && npm install
+    startCommand: cd server && node server.js
     envVars:
-      - key: PORT
-        value: 5000
+      - key: NODE_ENV
+        value: production
       - key: MONGO_URI
         value: mongodb+srv://aithorappan_db_user:Gamefornow33@aynflix-admin.u9ngiga.mongodb.net/heimeimage?retryWrites=true&w=majority
       - key: JWT_SECRET
         value: abukyvtyukv45
       - key: CLIPDROP_API_KEY
         value: a15c73908e434ac03862a8553fdf272e95cbcf0c5b7fc584b4a61261a491247cf79aef81c334e277598943ce7351560e
-      - key: CLIENT_URL
-        value: https://heimage.vercel.app
+      # CLIENT_URL not needed - same domain!
 
