@@ -24,14 +24,19 @@ npm start
 
 Or:
 ```bash
+node index.js
+```
+
+Or:
+```bash
 npm run dev
 ```
+
+**That's it!** One command runs everything. 🚀
 
 This starts both:
 - **Backend:** http://localhost:5000
 - **Frontend:** http://localhost:5173
-
-**That's it!** One command runs everything. 🚀
 
 Press `Ctrl+C` to stop both servers.
 

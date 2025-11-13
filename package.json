@@ -4,7 +4,7 @@
   "description": "Full-stack text-to-image generator using Clipdrop API",
   "private": true,
   "scripts": {
-    "start": "node start.js",
+    "start": "node index.js",
     "dev": "npm run start",
     "dev:server": "cd server && npm run dev",
     "dev:client": "cd client && npm run dev",
