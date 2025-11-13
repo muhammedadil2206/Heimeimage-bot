@@ -15,37 +15,23 @@
 npm run install:all
 ```
 
-### Run Development Server
+### Run Everything (Single Command)
 
-**Option 1: Run Both Together (Recommended)**
+**Just run this one command:**
+```bash
+npm start
+```
+
+Or:
 ```bash
 npm run dev
 ```
 
-**Option 2: Windows PowerShell (If concurrently fails)**
-```powershell
-.\run-dev.ps1
-```
-Or use the Windows command:
-```bash
-npm run dev:win
-```
-
-**Option 3: Run Separately (Most Reliable)**
-
-**Terminal 1 - Backend:**
-```bash
-npm run dev:server
-```
-
-**Terminal 2 - Frontend:**
-```bash
-npm run dev:client
-```
-
-This starts:
+This starts both:
 - **Backend:** http://localhost:5000
 - **Frontend:** http://localhost:5173
+
+**That's it!** One command runs everything. 🚀
 
 ### Environment Variables (Local)
 
@@ -133,7 +119,10 @@ heimage-bot/
 # Install dependencies (first time)
 npm run install:all
 
-# Run development (both frontend + backend)
+# Run everything (single command) ⭐
+npm start
+
+# Or use this (same thing)
 npm run dev
 
 # Run backend only
@@ -144,9 +133,6 @@ npm run dev:client
 
 # Build for production
 npm run build
-
-# Run production server
-npm start
 ```
 
 ---
